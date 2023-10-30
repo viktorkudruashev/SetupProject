@@ -31,18 +31,16 @@ jobs:
         echo "::set-env name=FAILED_TESTS::$failedTests"
     
     - name: Slack notification test
-      uses: rtCamp/action-slack-notify@v2
-      with:
-        args: '{
-        
-          "text": "Cypress tests have completed.",
-          "attachments": [
-            {
-              "text": "Pass: ${{ env.PASSED_TESTS }}, Fail: ${{ env.FAILED_TESTS }}",
-              "color": "${{ env.FAILED_TESTS == 0 ? 'good' : 'danger' }}"
-            }   
-          ]
-        }'
-
-      env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_TESTS_NOTIFICATIONS }} 
+  uses: rtCamp/action-slack-notify@v2
+  with:
+    args: '{
+      "text": "Cypress tests have completed.",
+      "attachments": [
+        {
+          "text": "Pass: ${{ env.PASSED_TESTS }}, Fail: ${{ env.FAILED_TESTS }}",
+          "color": "${{ env.FAILED_TESTS == 0 ? 'good' : 'danger' }}"
+        }
+      ]
+    }'
+  env:
+    SLACK_WEBHOOK: ${{ secrets.SLACK_TESTS_NOTIFICATIONS }}

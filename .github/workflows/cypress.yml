@@ -35,7 +35,7 @@ jobs:
       with:
         args: '{
         
-          "text": "Cypress tests have completed."
+          "text": "Cypress tests have completed.",
           "attachments": [
             {
               "text": "Pass: ${{ env.PASSED_TESTS }}, Fail: ${{ env.FAILED_TESTS }}",

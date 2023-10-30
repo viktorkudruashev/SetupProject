@@ -1,62 +1,59 @@
 name: Cypress Tests
-
-on: [push]
-
+'on':
+  - push
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: npm install
+      - name: Cypress Test Run
+        id: cypress-results
+        run: npx cypress run --reporter json
+      - name: Slack notification test
+        uses: rtCamp/action-slack-notify@v2
+        with:
+          args: >-
+            { "text": "Cypress tests have completed.", "attachments": [ {
+            "text": "Pass: ${{ env.PASSED_TESTS }}, Fail: ${{ env.FAILED_TESTS
+            }}", } ] }
+        env:
+          SLACK_WEBHOOK: '${{ secrets.SLACK_TESTS_NOTIFICATIONS }}'
+      - name: Install Postman CLI
+        run: |
+          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      - name: Login to Postman CLI
+        run: 'postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}'
+      - name: Run API tests
+        run: >
+          postman collection run "30011177-b7d3c222-0546-4214-ba96-3c919e15457d"
+          -e "30011177-8999315a-052e-4e41-a854-22aa862c56b7"
+      - name: Install newman
+        run: |
+          npm install -g newman.    
+          npm install -g newman-reporter-slackmsg
+      - name: Run Test
+        run: >
+          newman run
+          https://api.getpostman.com/collections/${{30011177-b7d3c222-0546-4214-ba96-3c919e15457d}}
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 14
+          apikey=${{secrets.POSTMAN_API_KEY}} \
 
-    - name: Install dependencies
-      run: npm install
+          -e
+          https://api.getpostman.com/environments/${{30011177-8999315a-052e-4e41-a854-22aa862c56b7}}? 
 
-    - name: Cypress Test Run
-      id: cypress-results
-      run: npx cypress run --reporter json
-    
-    - name: Slack notification test
-      uses: rtCamp/action-slack-notify@v2
-      with:
-          args: '{
-              "text": "Cypress tests have completed.",
-              "attachments": [
-                {
-                  "text": "Pass: ${{ env.PASSED_TESTS }}, Fail: ${{ env.FAILED_TESTS }}",
-                }
-              ]
-            }'
-      env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_TESTS_NOTIFICATIONS }}
+          apikey=${{secrets.POSTMAN_API_KEY}} \
 
-    - name: Install Postman CLI
-      run: |
-        curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-    - name: Login to Postman CLI
-      run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
-    - name: Run API tests
-      run: |
-        postman collection run "30011177-b7d3c222-0546-4214-ba96-3c919e15457d" -e "30011177-8999315a-052e-4e41-a854-22aa862c56b7"
+          -r slackmsg \
 
-    - name: Install newman
-      run: |
-        npm install -g newman.    
-        npm install -g newman-reporter-slackmsg
+          --reporter-slackmsg-collection 'PostMan Test Collection-GoPuls'  \
 
-    - name: Run Test
-      run: |
-        newman run https://api.getpostman.com/collections/${{30011177-b7d3c222-0546-4214-ba96-3c919e15457d}}
-        apikey=${{secrets.POSTMAN_API_KEY}} \
-        -e https://api.getpostman.com/environments/${{30011177-8999315a-052e-4e41-a854-22aa862c56b7}}? 
-        apikey=${{secrets.POSTMAN_API_KEY}} \
-        -r slackmsg \
-        --reporter-slackmsg-collection 'PostMan Test Collection-GoPuls'  \
-        --reporter-slackmsg-environment 'Staging Env'  \
-        --reporter-slackmsg-webhookurl ${{secrets.SLACK_TESTS_NOTIFICATIONS}}
+          --reporter-slackmsg-environment 'Staging Env'  \
+
+          --reporter-slackmsg-webhookurl ${{secrets.SLACK_TESTS_NOTIFICATIONS}}

@@ -19,11 +19,30 @@ jobs:
       run: npm install
 
     - name: Run Cypress Tests
-      run: npx cypress run
+      run: npx cypress run --reporter json
+
+    - name: Parse Cypress Test Results
+      id: cypress-results
+      run: |
+        testResults=$(npx cypress run --reporter json)
+        passedTests=$(echo "$testResults" | jq -r '.totalTests - .totalFailed')
+        failedTests=$(echo "$testResults" | jq -r '.totalFailed')
+        echo "::set-env name=PASSED_TESTS::$passedTests"
+        echo "::set-env name=FAILED_TESTS::$failedTests"
     
     - name: Slack notification test
       uses: rtCamp/action-slack-notify@v2
       with:
-        args: '{"text": "Cypress tests have completed."}'
+        args: '{
+        
+          "text": "Cypress tests have completed."
+          "attachments": [
+            {
+              "text": "Pass: ${{ env.PASSED_TESTS }}, Fail: ${{ env.FAILED_TESTS }}",
+              "color": "${{ env.FAILED_TESTS == 0 ? 'good' : 'danger' }}"
+            }   
+          ]
+        }'
+
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_TESTS_NOTIFICATIONS }} 

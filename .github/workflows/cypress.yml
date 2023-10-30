@@ -22,7 +22,7 @@ jobs:
       run: npx cypress run
     
     - name: Slack notification test
-      uses: rtCamp/action-slack-notify@v3
+      uses: rtCamp/action-slack-notify@v2
       with:
         args: '{"text": "Cypress tests have completed."}'
       env:

@@ -40,11 +40,12 @@ jobs:
             }'
       env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_TESTS_NOTIFICATIONS }}
+
     - name: Install Postman CLI
-        run: |
-          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-      - name: Login to Postman CLI
-        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
-      - name: Run API tests
-        run: |
-          postman collection run "30011177-b7d3c222-0546-4214-ba96-3c919e15457d" -e "30011177-8999315a-052e-4e41-a854-22aa862c56b7"
+      run: |
+        curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+    - name: Login to Postman CLI
+      run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+    - name: Run API tests
+      run: |
+        postman collection run "30011177-b7d3c222-0546-4214-ba96-3c919e15457d" -e "30011177-8999315a-052e-4e41-a854-22aa862c56b7"

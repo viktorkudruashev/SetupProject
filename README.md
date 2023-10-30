@@ -1,2 +1,2 @@
 # SetupProject
-Learning how to setup a testing environment
+Learning how to setup a testing environment CI / CD

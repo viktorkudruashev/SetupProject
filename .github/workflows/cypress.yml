@@ -36,7 +36,7 @@ jobs:
           -e "30011177-8999315a-052e-4e41-a854-22aa862c56b7"
       - name: Install newman
         run: |
-          npm install -g newman.    
+          npm install -g newman
           npm install -g newman-reporter-slackmsg
       - name: Run Test
         run: >

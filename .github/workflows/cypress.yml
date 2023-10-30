@@ -38,7 +38,6 @@ jobs:
       "attachments": [
         {
           "text": "Pass: ${{ env.PASSED_TESTS }}, Fail: ${{ env.FAILED_TESTS }}",
-          "color": "${{ env.FAILED_TESTS == 0 ? 'good' : 'danger' }}"
         }
       ]
     }'

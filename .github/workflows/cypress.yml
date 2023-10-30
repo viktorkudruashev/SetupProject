@@ -41,7 +41,7 @@ jobs:
       env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_TESTS_NOTIFICATIONS }}
     
-    name: Automated API tests using Postman CLI
+    - name: Automated API tests using Postman CLI
     jobs:
       automated-api-tests:
         runs-on: ubuntu-latest

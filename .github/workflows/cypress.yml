@@ -20,10 +20,10 @@ jobs:
 
     - name: Run Cypress Tests
       run: npx cypress run
-
-     - name: Notify Slack
+    
+    - name: Slack notification test
       uses: rtCamp/action-slack-notify@v3
       with:
         args: '{"text": "Cypress tests have completed."}'
       env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_TESTS_NOTIFICATIONS }}
+        SLACK_WEBHOOK: ${{ secrets.SLACK_TESTS_NOTIFICATIONS }} 

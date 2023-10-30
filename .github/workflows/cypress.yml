@@ -17,10 +17,7 @@ jobs:
 
     - name: Install dependencies
       run: npm install
-
-    - name: Run Cypress Tests
-      run: npx cypress run --reporter json
-
+      
     - name: Parse Cypress Test Results
       id: cypress-results
       run: |

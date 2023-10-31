@@ -34,6 +34,7 @@ jobs:
         with:
           max_attempts: 3
           command: 'postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}'
+          timeout_seconds: 5
 #      - name: Login to Postman CLI
 #        run: 'postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}'
 

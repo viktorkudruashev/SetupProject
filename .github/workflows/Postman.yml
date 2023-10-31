@@ -34,11 +34,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-      - name: Run API tests
-        run: >
-          postman collection run "30011177-b7d3c222-0546-4214-ba96-3c919e15457d"
-          -e "30011177-8999315a-052e-4e41-a854-22aa862c56b7"
-        continue-on-error: true
+#      - name: Run API tests
+#        run: >
+#          postman collection run "30011177-b7d3c222-0546-4214-ba96-3c919e15457d"
+#          -e "30011177-8999315a-052e-4e41-a854-22aa862c56b7"
+#        continue-on-error: true
       - name: Install newman
         run: |
           npm install -g newman

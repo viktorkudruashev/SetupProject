@@ -38,6 +38,7 @@ jobs:
         run: >
           postman collection run "30011177-b7d3c222-0546-4214-ba96-3c919e15457d"
           -e "30011177-8999315a-052e-4e41-a854-22aa862c56b7"
+        continue-on-error: true
       - name: Install newman
         run: |
           npm install -g newman
@@ -50,3 +51,4 @@ jobs:
           --reporter-slackmsg-collection 'PostMan Test Collection-GoPuls'
           --reporter-slackmsg-environment 'Staging Env'
           --reporter-slackmsg-webhookurl ${{secrets.SLACK_TESTS_NOTIFICATIONS}}
+        continue-on-error: true

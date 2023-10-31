@@ -44,7 +44,7 @@ jobs:
           npm install -g newman-reporter-slackmsg
       - name: Run Test
         run: >
-          newman run https://api.getpostman.com/collections/${{secrets.POSTMAN_ENV_STAGING}}?apikey=${{secrets.POSTMAN_API_KEY}}
+          newman run https://api.getpostman.com/collections/${{secrets.POSTMAN_COLLECTION}}?apikey=${{secrets.POSTMAN_API_KEY}}
           -e https://api.getpostman.com/environments/${{secrets.POSTMAN_ENV_STAGING}}?apikey=${{secrets.POSTMAN_API_KEY}}
           -r slackmsg
           --reporter-slackmsg-collection 'PostMan Test Collection-GoPuls'

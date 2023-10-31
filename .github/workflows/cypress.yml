@@ -1,4 +1,4 @@
-name: Cypress Tests
+name: Postman Tests
 'on':
   - push
 jobs:
@@ -7,24 +7,24 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-      - name: Install dependencies
-        run: npm install
-      - name: Cypress Test Run
-        id: cypress-results
-        run: npx cypress run --reporter json
-      - name: Slack notification test
-        uses: rtCamp/action-slack-notify@v2
-        with:
-          args: >-
-            { "text": "Cypress tests have completed.", "attachments": [ {
-            "text": "Pass: ${{ env.PASSED_TESTS }}, Fail: ${{ env.FAILED_TESTS
-            }}", } ] }
-        env:
-          SLACK_WEBHOOK: '${{ secrets.SLACK_TESTS_NOTIFICATIONS }}'
+#      - name: Setup Node.js
+#        uses: actions/setup-node@v2
+#        with:
+#          node-version: 14
+#      - name: Install dependencies
+#        run: npm install
+#      - name: Cypress Test Run
+#        id: cypress-results
+#        run: npx cypress run --reporter json
+#      - name: Slack notification test
+#        uses: rtCamp/action-slack-notify@v2
+#        with:
+#          args: >-
+#            { "text": "Cypress tests have completed.", "attachments": [ {
+#            "text": "Pass: ${{ env.PASSED_TESTS }}, Fail: ${{ env.FAILED_TESTS
+#            }}", } ] }
+#        env:
+#          SLACK_WEBHOOK: '${{ secrets.SLACK_TESTS_NOTIFICATIONS }}'
       - name: Install Postman CLI
         run: |
           curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh

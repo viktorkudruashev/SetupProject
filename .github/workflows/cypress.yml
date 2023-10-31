@@ -48,5 +48,5 @@ jobs:
           -e https://api.getpostman.com/environments/30011177-8999315a-052e-4e41-a854-22aa862c56b7?apikey=${{secrets.POSTMAN_API_KEY}}
           -r slackmsg
           --reporter-slackmsg-collection 'PostMan Test Collection-GoPuls'
-          --reporter-slackmsg-environment 'Staging Env'  \
+          --reporter-slackmsg-environment 'Staging Env'
           --reporter-slackmsg-webhookurl ${{secrets.SLACK_TESTS_NOTIFICATIONS}}

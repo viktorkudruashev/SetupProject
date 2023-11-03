@@ -6,4 +6,10 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
   },
+  env: {
+      "reporter": "cypress-slack-reporter",
+      "reporterOptions": {
+        "url": "${SLACK_WEBHOOK_URL}"
+      }
+  }
 });

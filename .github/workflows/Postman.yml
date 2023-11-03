@@ -15,7 +15,11 @@ jobs:
 #        run: npm install
 #      - name: Cypress Test Run
 #        id: cypress-results
-#        run: npx cypress run --reporter json
+#        run: npx cypress run --reporter json --reporter-options "reportDir=results,reportFilename=results.json"
+#      - name: Send Test Results to Slack
+#      run: node slackReporter.js
+#      env:
+#        SLACK_TOKEN: ${{ secrets.SLACK_WEBHOOK_URL }}
 #      - name: Slack notification test
 #        uses: rtCamp/action-slack-notify@v2
 #        with:

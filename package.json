@@ -1,5 +1,6 @@
 {
   "devDependencies": {
-    "cypress": "^13.3.3"
+    "cypress": "^13.3.3",
+    "cypress-slack-reporter": "^1.5.3"
   }
 }

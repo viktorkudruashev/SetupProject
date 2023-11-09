@@ -16,19 +16,6 @@ jobs:
       - name: Cypress Test Run
         id: cypress-results
         run: npx cypress run --record --key d87b9470-6f9a-4d92-9574-75c70f78bbb5
-#      - name: Send Test Results to Slack
-#      run: node slackReporter.js
-#      env:
-#        SLACK_TOKEN: ${{ secrets.SLACK_WEBHOOK_URL }}
-#      - name: Slack notification test
-#        uses: rtCamp/action-slack-notify@v2
-#        with:
-#          args: >-
-#            { "text": "Cypress tests have completed.", "attachments": [ {
-#            "text": "Pass: ${{ env.PASSED_TESTS }}, Fail: ${{ env.FAILED_TESTS
-#            }}", } ] }
-#        env:
-#          SLACK_WEBHOOK: '${{ secrets.SLACK_TESTS_NOTIFICATIONS }}'
       - name: Install Postman CLI
         run: |
           curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
@@ -39,18 +26,10 @@ jobs:
           max_attempts: 3
           command: 'postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}'
           timeout_seconds: 5
-#      - name: Login to Postman CLI
-#        run: 'postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}'
-
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 16
-#      - name: Run API tests
-#        run: >
-#          postman collection run "30011177-b7d3c222-0546-4214-ba96-3c919e15457d"
-#          -e "30011177-8999315a-052e-4e41-a854-22aa862c56b7"
-#        continue-on-error: true
       - name: Install newman
         run: |
           npm install -g newman

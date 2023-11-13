@@ -16,9 +16,9 @@ jobs:
 #      - name: Cypress Test Run
 #        id: cypress-results
 #        run: npx cypress run --record --key d87b9470-6f9a-4d92-9574-75c70f78bbb5
-#      - name: Install Postman CLI
-#        run: |
-#          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      - name: Install Postman CLI
+        run: |
+          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
 
       - name: Login to Postman CLI
         uses: nick-fields/retry@v2
